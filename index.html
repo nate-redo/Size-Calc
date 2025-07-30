@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,441 +11,300 @@
             box-sizing: border-box;
         }
 
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
+        body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f5f5f5;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        .calculator-container {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
+        .calculator {
             width: 100%;
-            height: 100%;
-            max-width: none;
-            box-shadow: none;
-            overflow: auto;
+            max-width: 650px;
+            padding: 20px;
+            background: white;
         }
 
         .header {
-            background: #f8f8f8;
             text-align: center;
-            padding: 40px 30px;
-            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 40px;
         }
 
         .header h1 {
             font-size: 32px;
-            font-weight: 800;
-            color: #333;
+            font-weight: 700;
+            color: #000;
             margin-bottom: 8px;
-            letter-spacing: 1px;
+            letter-spacing: -0.5px;
         }
 
         .header p {
-            color: #666;
             font-size: 18px;
-            font-weight: 400;
+            color: #666;
         }
 
-        .form-content {
-            padding: 40px 30px;
+        .form-container, .result-container {
+            display: none;
+        }
+
+        .form-container.active, .result-container.active {
+            display: block;
         }
 
         .form-group {
-            margin-bottom: 35px;
+            margin-bottom: 20px;
         }
 
-        .form-group label {
+        label {
             display: block;
-            font-size: 16px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #555;
         }
 
-        .gender-buttons {
+        .gender-selector {
             display: flex;
-            gap: 15px;
+            gap: 12px;
         }
 
-        .gender-btn {
-            flex: 1;
-            padding: 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            background: white;
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .gender-btn:hover {
-            border-color: #ccc;
-        }
-
-        .gender-btn.active {
-            background: #000;
-            color: white;
-            border-color: #000;
-        }
-
-        .height-inputs {
-            display: flex;
-            gap: 15px;
-            align-items: flex-end;
-        }
-
-        .height-input-group {
-            flex: 1;
-        }
-
-        .height-unit-selector {
+        .gender-option {
             flex: 1;
             position: relative;
         }
 
-        .unit-label {
-            width: 100%;
-            padding: 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            color: #333;
-            background: #f8f8f8;
+        .gender-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .gender-option label {
+            display: block;
+            padding: 12px;
             text-align: center;
-            font-weight: 500;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            color: #333;
-            background: white;
-            transition: border-color 0.3s ease;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: #000;
-        }
-
-        .input-field::placeholder {
-            color: #999;
-        }
-
-        .unit-dropdown {
-            width: 100%;
-            padding: 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            color: #333;
-            background: white;
+            background: #f5f5f5;
+            border-radius: 5px;
             cursor: pointer;
-            appearance: none;
-            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23666" d="M2 0L0 2h4zM2 5L0 3h4z"/></svg>');
-            background-repeat: no-repeat;
-            background-position: right 20px center;
-            background-size: 12px;
+            transition: all 0.2s ease;
+            margin: 0;
         }
 
-        .unit-dropdown:focus {
-            outline: none;
-            border-color: #000;
+        .gender-option input[type="radio"]:checked + label {
+            background: #000;
+            color: white;
         }
 
-        .weight-input-group {
+        .height-input-group {
             display: flex;
-            gap: 15px;
+            align-items: center;
+            gap: 8px;
         }
 
-        .weight-field {
-            flex: 3;
+        .height-toggle {
+            font-size: 12px;
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-left: auto;
+            white-space: nowrap;
         }
 
-        .weight-unit {
+        .height-inputs {
+            display: flex;
+            gap: 8px;
             flex: 1;
         }
 
-        .format-hint {
-            color: #666;
-            font-size: 14px;
-            margin-top: 8px;
-            font-style: italic;
+        .height-inputs.single {
+            max-width: 50%;
         }
 
-        .calculate-btn {
+        input[type="number"] {
             width: 100%;
-            padding: 20px;
-            background: #000;
-            color: white;
-            border: none;
-            border-radius: 8px;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f5f5f5;
+            transition: all 0.2s ease;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #000;
+            background: white;
+        }
+
+        .input-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .unit {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
             font-size: 16px;
             font-weight: 600;
+            color: white;
+            background: #000;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.2s ease;
+            margin-top: 24px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
-        .calculate-btn:hover {
+        button:hover:not(:disabled) {
             background: #333;
         }
 
-        .calculate-btn:disabled {
+        button:disabled {
             background: #ccc;
             cursor: not-allowed;
         }
 
-        .result-container {
-            display: none;
-            padding: 40px 30px;
-        }
-
         .result-box {
-            background: #e8f5e8;
-            border: 2px solid #c3e6c3;
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .result-size {
-            font-size: 48px;
-            font-weight: 800;
-            color: #2d7a2d;
-            margin-bottom: 8px;
-            letter-spacing: 2px;
-        }
-
-        .result-text {
-            color: #5a8a5a;
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        .try-again-btn {
-            width: 100%;
-            padding: 20px;
-            background: #000;
-            color: white;
-            border: none;
+            background: #e8f5e9;
             border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .try-again-btn:hover {
-            background: #333;
-        }
-
-        .error-box {
-            background: #fee;
-            border: 2px solid #fcc;
-            border-radius: 12px;
-            padding: 30px;
+            padding: 40px;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        .error-text {
-            color: #c33;
-            font-size: 16px;
-            font-weight: 500;
+        .size-label {
+            font-size: 48px;
+            font-weight: 700;
+            color: #2e7d32;
+            margin-bottom: 12px;
         }
 
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
+        .size-description {
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 400px) {
+            .calculator {
+                padding: 16px;
             }
-            
-            .form-content {
-                padding: 30px 20px;
-            }
-            
-            .header {
-                padding: 30px 20px;
-            }
-            
+
             .header h1 {
-                font-size: 28px;
+                font-size: 24px;
             }
-            
-            .gender-buttons {
-                flex-direction: column;
-                gap: 10px;
+
+            .header p {
+                font-size: 16px;
             }
-            
-            .height-inputs {
-                flex-direction: column;
-                gap: 10px;
+
+            .form-group {
+                margin-bottom: 16px;
             }
-            
-            .weight-input-group {
-                flex-direction: column;
-                gap: 10px;
+
+            button {
+                margin-top: 20px;
+            }
+
+            .height-toggle {
+                font-size: 11px;
+            }
+
+            .result-box {
+                padding: 30px 20px;
+            }
+
+            .size-label {
+                font-size: 36px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="calculator-container">
-        <div id="form-section" class="form-content">
-            <div class="form-group">
-                <label>GENDER</label>
-                <div class="gender-buttons">
-                    <button type="button" class="gender-btn" data-gender="women">WOMEN'S</button>
-                    <button type="button" class="gender-btn" data-gender="men">MEN'S</button>
+    <div class="calculator">
+        <div class="form-container active" id="formContainer">
+            <form id="sizeForm">
+                <div class="form-group">
+                    <label>Gender</label>
+                    <div class="gender-selector">
+                        <div class="gender-option">
+                            <input type="radio" id="male" name="gender" value="male">
+                            <label for="male">Men's</label>
+                        </div>
+                        <div class="gender-option">
+                            <input type="radio" id="female" name="gender" value="female">
+                            <label for="female">Women's</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label>HEIGHT</label>
-                <div class="height-inputs">
+                <div class="form-group">
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <label style="margin: 0;">Height</label>
+                        <span class="height-toggle" id="heightToggle">Switch to inches only</span>
+                    </div>
                     <div class="height-input-group">
-                        <input type="number" class="input-field" id="feet" placeholder="feet" min="1" max="8">
-                    </div>
-                    <div class="height-input-group">
-                        <input type="number" class="input-field" id="inches" placeholder="inches" min="0" max="11">
-                    </div>
-                    <div class="height-unit-selector">
-                        <div class="unit-label">ft-in</div>
-                    </div>
-                </div>
-                <div class="format-hint">Format: feet-inches (e.g., 5-8)</div>
-            </div>
-
-            <div class="form-group">
-                <label>WEIGHT</label>
-                <div class="weight-input-group">
-                    <div class="weight-field">
-                        <input type="number" class="input-field" id="weight" placeholder="154" min="50" max="400">
-                    </div>
-                    <div class="weight-unit">
-                        <div class="unit-label">lbs</div>
+                        <div class="height-inputs" id="heightInputs">
+                            <div class="input-wrapper">
+                                <input type="number" id="feet" name="feet" min="3" max="7" placeholder="Feet">
+                                <span class="unit">ft</span>
+                            </div>
+                            <div class="input-wrapper">
+                                <input type="number" id="inches" name="inches" min="0" max="11" placeholder="Inches">
+                                <span class="unit">in</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <button type="button" class="calculate-btn" id="calculate-btn">CALCULATE MY SIZE</button>
+                <div class="form-group">
+                    <label for="weight">Weight</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="weight" name="weight" min="50" max="400" placeholder="Enter weight">
+                        <span class="unit">lbs</span>
+                    </div>
+                </div>
+
+                <button type="submit" id="calculateBtn" disabled>Calculate Size</button>
+            </form>
         </div>
 
-        <div id="result-section" class="result-container">
-            <div id="result-content">
-                <!-- Result will be inserted here -->
+        <div class="result-container" id="resultContainer">
+            <div class="result-box">
+                <div class="size-label" id="sizeResult">SIZE M</div>
+                <div class="size-description">Recommended for your measurements</div>
             </div>
-            <button type="button" class="try-again-btn" id="try-again-btn">TRY AGAIN</button>
+            <button type="button" id="tryAgainBtn">Try Again</button>
         </div>
     </div>
 
     <script>
-        let selectedGender = '';
-
-        // Gender selection
-        document.querySelectorAll('.gender-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                selectedGender = this.dataset.gender;
-                checkFormValidity();
-            });
-        });
-
-        // Add event listeners for form validation
-        document.getElementById('feet').addEventListener('input', checkFormValidity);
-        document.getElementById('inches').addEventListener('input', checkFormValidity);
-        document.getElementById('weight').addEventListener('input', checkFormValidity);
-
-        function checkFormValidity() {
-            const feet = document.getElementById('feet').value;
-            const inches = document.getElementById('inches').value;
-            const weight = document.getElementById('weight').value;
-            const calculateBtn = document.getElementById('calculate-btn');
-            
-            if (selectedGender && feet && inches !== '' && weight) {
-                calculateBtn.disabled = false;
-            } else {
-                calculateBtn.disabled = true;
-            }
-        }
-
-        // Calculate button
-        document.getElementById('calculate-btn').addEventListener('click', function() {
-            const feet = parseInt(document.getElementById('feet').value) || 0;
-            const inches = parseInt(document.getElementById('inches').value) || 0;
-            const weight = parseInt(document.getElementById('weight').value) || 0;
-
-            if (!selectedGender || !feet || weight === 0) {
-                showError('Please fill in all fields and select a gender.');
-                return;
-            }
-
-            if (inches < 0 || inches > 11) {
-                showError('Inches must be between 0 and 11.');
-                return;
-            }
-
-            const totalInches = (feet * 12) + inches;
-            const size = calculateSize(selectedGender, totalInches, weight);
-            
-            showResult(size);
-        });
-
-        // Try again button
-        document.getElementById('try-again-btn').addEventListener('click', function() {
-            document.getElementById('form-section').style.display = 'block';
-            document.getElementById('result-section').style.display = 'none';
-            
-            // Reset form
-            document.getElementById('feet').value = '';
-            document.getElementById('inches').value = '';
-            document.getElementById('weight').value = '';
-            document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
-            selectedGender = '';
-            checkFormValidity();
-        });
-
-        function calculateSize(gender, heightInches, weightLbs) {
-            if (gender === 'women') {
-                return getStokoWomensSize(heightInches, weightLbs);
-            } else {
-                return getStokoMensSize(heightInches, weightLbs);
-            }
-        }
-
+        // Size calculation functions
         function getStokoWomensSize(heightIn, weightLb) {
-            if (heightIn >= 58 && heightIn <= 62 && weightLb >= 90 && weightLb <= 115) {
+            if (58 <= heightIn && heightIn <= 62 && 90 <= weightLb && weightLb <= 115) {
                 return "XS";
-            } else if (heightIn >= 60 && heightIn <= 66 && weightLb >= 105 && weightLb <= 130) {
+            } else if (60 <= heightIn && heightIn <= 66 && 105 <= weightLb && weightLb <= 130) {
                 return "S";
-            } else if (heightIn >= 62 && heightIn <= 70 && weightLb >= 125 && weightLb <= 150) {
+            } else if (62 <= heightIn && heightIn <= 70 && 125 <= weightLb && weightLb <= 150) {
                 return "M";
-            } else if (heightIn >= 64 && heightIn <= 72 && weightLb >= 145 && weightLb <= 175) {
+            } else if (64 <= heightIn && heightIn <= 72 && 145 <= weightLb && weightLb <= 175) {
                 return "L";
-            } else if (heightIn >= 64 && heightIn <= 74 && weightLb >= 170 && weightLb <= 200) {
+            } else if (64 <= heightIn && heightIn <= 74 && 170 <= weightLb && weightLb <= 200) {
                 return "XL";
-            } else if (heightIn >= 64 && heightIn <= 74 && weightLb >= 195 && weightLb <= 235) {
+            } else if (64 <= heightIn && heightIn <= 74 && 195 <= weightLb && weightLb <= 235) {
                 return "XXL";
             } else {
                 return "Out of range";
@@ -453,57 +312,185 @@
         }
 
         function getStokoMensSize(heightIn, weightLb) {
-            if (heightIn >= 63 && heightIn <= 70 && weightLb >= 125 && weightLb <= 160) {
+            if (63 <= heightIn && heightIn <= 70 && 125 <= weightLb && weightLb <= 160) {
                 return "S";
-            } else if (heightIn >= 67 && heightIn <= 75 && weightLb >= 150 && weightLb <= 190) {
+            } else if (67 <= heightIn && heightIn <= 75 && 150 <= weightLb && weightLb <= 190) {
                 return "M";
-            } else if (heightIn >= 69 && heightIn <= 77 && weightLb >= 180 && weightLb <= 220) {
+            } else if (69 <= heightIn && heightIn <= 77 && 180 <= weightLb && weightLb <= 220) {
                 return "L";
-            } else if (heightIn >= 69 && heightIn <= 79 && weightLb >= 210 && weightLb <= 250) {
+            } else if (69 <= heightIn && heightIn <= 79 && 210 <= weightLb && weightLb <= 250) {
                 return "XL";
-            } else if (heightIn >= 70 && heightIn <= 80 && weightLb >= 240 && weightLb <= 300) {
+            } else if (70 <= heightIn && heightIn <= 80 && 240 <= weightLb && weightLb <= 300) {
                 return "XXL";
             } else {
                 return "Out of range";
             }
         }
 
-        function showResult(size) {
-            const resultContent = document.getElementById('result-content');
+        // Form handling
+        const form = document.getElementById('sizeForm');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const formContainer = document.getElementById('formContainer');
+        const resultContainer = document.getElementById('resultContainer');
+        const sizeResult = document.getElementById('sizeResult');
+        const tryAgainBtn = document.getElementById('tryAgainBtn');
+        const heightToggle = document.getElementById('heightToggle');
+        const heightInputs = document.getElementById('heightInputs');
+        
+        let isInchesOnly = false;
+
+        // Toggle height input mode
+        heightToggle.addEventListener('click', function() {
+            isInchesOnly = !isInchesOnly;
             
-            if (size === "Out of range") {
-                resultContent.innerHTML = `
-                    <div class="error-box">
-                        <div class="error-text">Sorry, your measurements fall outside our size range. Please contact customer service for assistance.</div>
+            if (isInchesOnly) {
+                heightToggle.textContent = 'Switch to feet & inches';
+                heightInputs.classList.add('single');
+                heightInputs.innerHTML = `
+                    <div class="input-wrapper">
+                        <input type="number" id="totalInches" name="totalInches" min="48" max="84" placeholder="Height">
+                        <span class="unit">inches</span>
                     </div>
                 `;
             } else {
-                resultContent.innerHTML = `
-                    <div class="result-box">
-                        <div class="result-size">SIZE ${size}</div>
-                        <div class="result-text">Recommended for your measurements</div>
+                heightToggle.textContent = 'Switch to inches only';
+                heightInputs.classList.remove('single');
+                heightInputs.innerHTML = `
+                    <div class="input-wrapper">
+                        <input type="number" id="feet" name="feet" min="3" max="7" placeholder="Feet">
+                        <span class="unit">ft</span>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="number" id="inches" name="inches" min="0" max="11" placeholder="Inches">
+                        <span class="unit">in</span>
                     </div>
                 `;
             }
             
-            document.getElementById('form-section').style.display = 'none';
-            document.getElementById('result-section').style.display = 'block';
+            // Re-attach event listeners
+            attachHeightListeners();
+            checkFormCompletion();
+        });
+
+        // Get total height in inches
+        function getTotalHeightInches() {
+            if (isInchesOnly) {
+                const totalInches = document.getElementById('totalInches');
+                const value = totalInches ? parseFloat(totalInches.value) : 0;
+                console.log('Total inches value:', value);
+                return value;
+            } else {
+                const feet = document.getElementById('feet');
+                const inches = document.getElementById('inches');
+                const feetValue = feet ? parseFloat(feet.value) || 0 : 0;
+                const inchesValue = inches ? parseFloat(inches.value) || 0 : 0;
+                const total = (feetValue * 12) + inchesValue;
+                console.log('Feet:', feetValue, 'Inches:', inchesValue, 'Total:', total);
+                return total;
+            }
         }
 
-        function showError(message) {
-            const resultContent = document.getElementById('result-content');
-            resultContent.innerHTML = `
-                <div class="error-box">
-                    <div class="error-text">${message}</div>
-                </div>
-            `;
+        // Enable/disable button based on form completion
+        function checkFormCompletion() {
+            const gender = document.querySelector('input[name="gender"]:checked');
+            const weight = document.getElementById('weight').value;
             
-            document.getElementById('form-section').style.display = 'none';
-            document.getElementById('result-section').style.display = 'block';
+            let heightValid = false;
+            if (isInchesOnly) {
+                const totalInches = document.getElementById('totalInches');
+                heightValid = totalInches && totalInches.value;
+            } else {
+                const feet = document.getElementById('feet');
+                const inches = document.getElementById('inches');
+                heightValid = feet && inches && feet.value && inches.value;
+            }
+
+            if (gender && heightValid && weight) {
+                calculateBtn.disabled = false;
+            } else {
+                calculateBtn.disabled = true;
+            }
         }
 
-        // Initialize form state
-        checkFormValidity();
+        // Attach event listeners to height inputs
+        function attachHeightListeners() {
+            if (isInchesOnly) {
+                const totalInches = document.getElementById('totalInches');
+                if (totalInches) {
+                    totalInches.addEventListener('input', checkFormCompletion);
+                }
+            } else {
+                const feet = document.getElementById('feet');
+                const inches = document.getElementById('inches');
+                if (feet) feet.addEventListener('input', checkFormCompletion);
+                if (inches) inches.addEventListener('input', checkFormCompletion);
+            }
+        }
+
+        // Initial event listeners
+        document.querySelectorAll('input[name="gender"]').forEach(radio => {
+            radio.addEventListener('change', checkFormCompletion);
+        });
+
+        document.getElementById('weight').addEventListener('input', checkFormCompletion);
+        attachHeightListeners();
+
+        // Handle form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateSize();
+        });
+        
+        // Also handle button click directly
+        calculateBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            calculateSize();
+        });
+        
+        function calculateSize() {
+            const genderInput = document.querySelector('input[name="gender"]:checked');
+            if (!genderInput) {
+                console.error('No gender selected');
+                return;
+            }
+            
+            const gender = genderInput.value;
+            const height = getTotalHeightInches();
+            const weight = parseFloat(document.getElementById('weight').value);
+            
+            console.log('Gender:', gender, 'Height:', height, 'Weight:', weight);
+
+            let size;
+            if (gender === 'female') {
+                size = getStokoWomensSize(height, weight);
+            } else {
+                size = getStokoMensSize(height, weight);
+            }
+            
+            console.log('Calculated size:', size);
+
+            // Display result
+            if (size === "Out of range") {
+                sizeResult.textContent = "OUT OF RANGE";
+            } else {
+                sizeResult.textContent = `SIZE ${size}`;
+            }
+
+            // Switch views
+            formContainer.classList.remove('active');
+            resultContainer.classList.add('active');
+        }
+
+        // Try again button
+        tryAgainBtn.addEventListener('click', function() {
+            // Clear form
+            form.reset();
+            calculateBtn.disabled = true;
+            
+            // Switch back to form view
+            resultContainer.classList.remove('active');
+            formContainer.classList.add('active');
+        });
     </script>
 </body>
 </html>
